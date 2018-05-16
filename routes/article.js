@@ -17,4 +17,13 @@ router.post('/', (req, res, next) => {
   });
 });
 
+router.get('/:articleId', (req, res, next) => {
+  const articleId = req.params.articleId;
+
+  db.Article.findById(articleId).then(article => {
+    res.json(article);
+    
+  });
+});
+
 module.exports = router;
