@@ -25,5 +25,17 @@ router.get('/:articleId', (req, res, next) => {
     
   });
 });
+router.delete('/:articleId', (req, res, next) => {
+  const articleId = req.params.articleId;
+  
+  // Check sequelize docs
+  db.Article.destroy({
+    where: {id: articleId},
+  }).then(() => {
+    db.Article.findAll().then((article) => {
+      res.json(article);
+    });
+  });
+});
 
 module.exports = router;
