@@ -38,4 +38,16 @@ router.delete('/:articleId', (req, res, next) => {
   });
 });
 
+router.put('/:articleId', (req, res, next) => {
+  const articleId = req.params.articleId;
+  const article = req.body;
+
+  // Check sequelize docs
+  db.Article.update(article, {where: {id: articleId}}).then(() => {
+    db.Article.findById(articleId).then((article) => {
+      res.json(article);
+    });
+  });
+});
+
 module.exports = router;
