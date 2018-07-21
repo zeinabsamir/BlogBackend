@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const comments = require('./comment');
 const db = require('../models');
 
 router.get('/', (req, res, next) => {
@@ -49,5 +50,10 @@ router.put('/:articleId', (req, res, next) => {
     });
   });
 });
+
+router.use('/:articleId/comments',function(req, res, next) {
+  req.articleId = req.params.articleId;
+  next()
+}, comments)
 
 module.exports = router;
