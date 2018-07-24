@@ -22,9 +22,14 @@ router.get('/:articleId', (req, res, next) => {
   const articleId = req.params.articleId;
 
   db.Article.findById(articleId).then(article => {
-    res.json(article);
+    article.getComments().then(comments => {
+       
+      res.json({article: article,
+                comments: comments
+            });
+          })
     
-  });
+     });
 });
 router.delete('/:articleId', (req, res, next) => {
   const articleId = req.params.articleId;

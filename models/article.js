@@ -6,7 +6,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {});
   Article.associate = function(models) {
     // associations can be defined here
-  Article.hasMany(models.Comment)
+  Article.hasMany(models.Comment, {onDelete: 'CASCADE'})
   };
   return Article;
 };

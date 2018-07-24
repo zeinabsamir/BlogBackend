@@ -8,5 +8,18 @@ router.get('/', (req, res, next) => {
   });
 });
 
+router.post('/', (req, res, next) => {
+  const articleId = req.articleId;
+  const comment = req.body;
+
+  // Check sequelize docs
+  db.Article.findById(articleId).then(article => {
+    article.createComment({ content: comment }).then(comment => {
+       
+      res.json(comment);
+          })
+    
+     });
+});
 
 module.exports = router;
