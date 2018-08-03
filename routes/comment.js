@@ -14,12 +14,28 @@ router.post('/', (req, res, next) => {
 
   // Check sequelize docs
   db.Article.findById(articleId).then(article => {
-    article.createComment({ content: comment }).then(comment => {
+    article.createComment( comment).then(comment => {
        
       res.json(comment);
           })
     
      });
+});
+
+router.delete('/:commentId', (req, res, next) => {
+
+  const articleId = req.articleId;
+  const commentId = req.params.commentId;
+  
+  // Check sequelize docs
+  db.Article.findById(articleId).then(article => {
+     article.removeComment(commentId).then(() => {
+      article.getComments().then(comments => {
+       
+        res.json(comments);
+      });
+    });
+  });
 });
 
 module.exports = router;
